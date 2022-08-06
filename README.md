@@ -1,2 +1,2 @@
-# Stepik--SQL
+# Stepik-SQL
 Интерактивный тренажер по SQL
