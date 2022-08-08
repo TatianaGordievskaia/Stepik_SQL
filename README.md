@@ -143,3 +143,12 @@ GROUP BY author;
 $$tax = \frac { S * \frac { k }{ 100 }}{ 1 + \frac { k }{ 100 }}$$
 
 $${S \text{without} \text{tax}} = \frac { S }{ 1 + \frac { k }{ 100 }}$$ 
+
+```sql
+SELECT author, 
+    SUM(price*amount) AS Стоимость, 
+    ROUND(SUM(price*amount)*0.18 / 1.18,2) AS НДС,
+    ROUND(SUM(price*amount) / 1.18,2) AS Стоимость_без_НДС
+FROM book
+GROUP BY author;
+```
