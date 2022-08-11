@@ -288,5 +288,25 @@ SELECT * FROM book;
 ```
 6. В таблице book необходимо скорректировать значение для покупателя в столбце buy таким образом, чтобы оно не превышало количество экземпляров книг, указанных в столбце amount. А цену тех книг, которые покупатель не заказывал, снизить на 10%.
 ```sql
-
+UPDATE book
+SET buy = IF(buy > amount, amount, buy), price = IF(buy=0, 0.9*price, price);
+SELECT * FROM book
+```
+7. Для тех книг в таблице book , которые есть в таблице supply, не только увеличить их количество в таблице book ( увеличить их количество на значение столбца amount таблицы supply), но и пересчитать их цену (для каждой книги найти сумму цен из таблиц book и supply и разделить на 2).
+```sql
+UPDATE book, supply 
+SET book.amount = book.amount + supply.amount,
+book.price = (book.price + supply.price)/2
+WHERE book.title = supply.title AND book.author = supply.author;
+SELECT * FROM book;
+```
+8. Удалить из таблицы supply книги тех авторов, общее количество экземпляров книг которых в таблице book превышает 10.
+```sql
+DELETE FROM supply 
+WHERE author IN(
+     SELECT author
+     FROM book
+     GROUP BY author
+     HAVING SUM(amount) > 10);
+SELECT * FROM supply;
 ```
