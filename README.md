@@ -312,5 +312,21 @@ SELECT * FROM supply;
 ```
 9. Создать таблицу заказ (ordering), куда включить авторов и названия тех книг, количество экземпляров которых в таблице book меньше среднего количества экземпляров книг в таблице book. В таблицу включить столбец   amount, в котором для всех книг указать одинаковое значение - среднее количество экземпляров книг в таблице book.
 ```sql
-
+CREATE TABLE ordering AS
+SELECT author, title, 
+(SELECT ROUND(AVG(amount)) 
+FROM book) AS amount
+FROM book
+WHERE amount < (SELECT AVG(amount) 
+FROM book);
+SELECT * FROM ordering;
 ```
+10. Придумайте один или несколько запросов корректировки данных к  таблицам book и  supply . Проверьте, правильно ли они работают.
+```sql
+SELECT author,title,amount,
+ROUND(price*IF(amount = (SELECT MAX(amount) 
+FROM book),0.95,1),2) as new_price
+FROM book
+```
+# 1.6 Таблица "Командировки", запросы на выборку
+1. Вывести из таблицы trip информацию о командировках тех сотрудников, фамилия которых заканчивается на букву «а», в отсортированном по убыванию даты последнего дня командировки виде. В результат включить столбцы name, city, per_diem, date_first, date_last.
