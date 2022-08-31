@@ -415,10 +415,32 @@ ORDER BY 2 DESC;
 | date_payment | дата |
 
 ```sql
-
+CREATE TABLE fine
+(fine_id int primary key auto_increment,
+    name varchar(30),
+    number_plate varchar(6),
+    violation varchar(30),
+    sum_fine decimal(8,2),
+    date_violation date,
+    date_payment date);
 ```
-9.
+2. В таблицу fine первые 5 строк уже занесены. Добавить в таблицу записи с ключевыми значениями 6, 7, 8.
 ```sql
 
 ```
+3.
+```sql
 
+```
+4.
+```sql
+
+```
+5.
+```sql
+
+```
+6.
+```sql
+
+```
